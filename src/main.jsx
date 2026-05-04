@@ -7,7 +7,7 @@ import { store } from "./store/store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename="/mega-ventas">
       <App />
     </BrowserRouter>
   </Provider>
