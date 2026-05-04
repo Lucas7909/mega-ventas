@@ -1,0 +1,26 @@
+/* Página 404 */
+.not-found {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.not-found h2 {
+  font-size: 60px;
+  color: #ff3c00;
+}
+
+.not-found p {
+  margin: 10px 0 20px;
+}
+/* Botón volver */
+.back-btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background: #ff3c00;
+  color: white;
+  border-radius: 6px;
+}
+
+.back-btn:hover {
+  background: #e63500;
+}
