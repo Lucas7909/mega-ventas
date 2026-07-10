@@ -9,10 +9,16 @@
 
 .product-card {
   background: white;
+  cursor: pointer;
   padding: 15px;
   border-radius: 12px;
   text-align: center;
   transition: transform 0.2s ease;
+}
+
+.product-card:focus {
+  outline: 2px solid #ff3c00;
+  outline-offset: 3px;
 }
 
 .product-card:hover {

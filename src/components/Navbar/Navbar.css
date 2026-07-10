@@ -2,12 +2,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ff3c00;
+  background: linear-gradient(90deg, #0b3d6e 0%, #ff3c00 100%);
   color: white;
-  padding: 15px;
+  padding: 12px 18px;
   margin-bottom: 20px;
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 
@@ -44,7 +45,20 @@
 /*logo*/
 
 .logo {
+  align-items: center;
+  background: #061826;
+  border: 2px solid #ffd400;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 64px;
+  justify-content: center;
+  margin-left: 0;
+  overflow: hidden;
+  padding: 4px;
   text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 64px;
 }
 
 .logo::after {
@@ -52,7 +66,14 @@
 }
 
 .logo:hover {
-  opacity: 0.8;
   transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
+.logo img {
+  height: 56px;
+  width: 56px;
+  border-radius: 10px;
+  cursor: pointer;
+  object-fit: cover;
+}

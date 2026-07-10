@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getProducts } from "../../services/productsService";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
@@ -11,7 +12,15 @@ function Products() {
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [addedId, setAddedId] = useState(null);
+
+    const handleCardKeyDown = (event, productId) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            navigate(`/products/${productId}`);
+        }
+    };
 
     const filteredProducts = products.filter((p) => {
         const matchSearch = p.title
@@ -72,14 +81,21 @@ function Products() {
                 ) : (
 
                     filteredProducts.map((p) => (
-                        <div className="product-card" key={p.id}>
+                        <div
+                            className="product-card"
+                            key={p.id}
+                            role="button"
+                            tabIndex="0"
+                            onClick={() => navigate(`/products/${p.id}`)}
+                            onKeyDown={(event) => handleCardKeyDown(event, p.id)}
+                        >
                             <img src={p.thumbnail} width="120" />
                             <h3>{p.title}</h3>
                             <p>${p.price}</p>
 
-
                             <button
-                                onClick={() => {
+                                onClick={(event) => {
+                                    event.stopPropagation();
                                     dispatch(addToCart(p));
                                     setAddedId(p.id);
                                     setTimeout(() => setAddedId(null), 1500);
