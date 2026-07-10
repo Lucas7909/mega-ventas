@@ -8,7 +8,7 @@ function About() {
         <h2>Mega Ventas</h2>
         <p>
           Una tienda online creada con React para explorar productos, consultar
-          detalles y administrar un carrito de compras de forma simple.
+          detalles en español y administrar un carrito de compras de forma simple.
         </p>
       </section>
 
@@ -18,10 +18,11 @@ function About() {
           <p>
             El proyecto integra navegacion entre vistas, consumo de una API
             externa, manejo de estados de carga y error, filtros de productos y
-            estado global con Redux Toolkit.
+            estado global con Redux Toolkit para compartir el carrito entre
+            distintas pantallas.
           </p>
           <p>
-            La idea es simular una experiencia basica de e-commerce, donde el
+            La idea es simular una experiencia basica de tienda online, donde el
             usuario puede buscar productos, abrir su detalle, agregarlos al
             carrito y modificar las cantidades antes de comprar.
           </p>
@@ -53,7 +54,7 @@ function About() {
 
         <article>
           <h3>Detalle de producto</h3>
-          <p>Cada tarjeta abre una vista con descripcion, precio, stock y rating.</p>
+          <p>Cada tarjeta abre una vista con descripcion, precio, stock y calificacion.</p>
         </article>
 
         <article>

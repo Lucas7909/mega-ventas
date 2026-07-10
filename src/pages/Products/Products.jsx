@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../../services/productsService";
+import { getProductCategory, getProductTitle } from "../../services/productTranslations";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import "./Products.css";
@@ -23,7 +24,7 @@ function Products() {
     };
 
     const filteredProducts = products.filter((p) => {
-        const matchSearch = p.title
+        const matchSearch = getProductTitle(p)
             .toLowerCase()
             .includes(search.toLowerCase());
 
@@ -47,32 +48,35 @@ function Products() {
 
     return (
         <div className="container">
-            <h1>Mega Ventas</h1>
-            <div className="filters">
-                <input
-                    type="text"
-                    placeholder="Buscar producto..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-                {/*<select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                >
-                    <option value="">Todas</option>
-                    <option value="smartphones">Smartphones</option>
-                    <option value="laptops">Laptops</option>
-                    <option value="fragrances">Perfumes</option>
-                </select>*/}
-                <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                    <option value="">Todas</option>
-                    {categories.map((cat) => (
-                        <option key={cat} value={cat}>
-                            {cat}
-                        </option>
-                    ))}
-                </select>
-            </div>
+            <section className="products-header">
+                <p className="products-label">Catalogo</p>
+                <h1>Mega Ventas</h1>
+                <p>Explora productos, filtra por categoria y agregalos al carrito.</p>
+            </section>
+
+            <section className="filters">
+                <label>
+                    Buscar
+                    <input
+                        type="text"
+                        placeholder="Buscar producto..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </label>
+
+                <label>
+                    Categoria
+                    <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                        <option value="">Todas</option>
+                        {categories.map((cat) => (
+                            <option key={cat} value={cat}>
+                                {cat}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+            </section>
             <div className="products-grid">
                 {filteredProducts.length === 0 ? (
                     <p className="no-results">
@@ -91,10 +95,12 @@ function Products() {
                             onKeyDown={(event) => handleCardKeyDown(event, p.id)}
                         >
                             <img src={p.thumbnail} width="120" />
-                            <h3>{p.title}</h3>
-                            <p>${p.price}</p>
+                            <span className="product-category">{getProductCategory(p.category)}</span>
+                            <h3>{getProductTitle(p)}</h3>
+                            <p className="product-price">${p.price}</p>
 
                             <button
+                                className="add-button"
                                 onClick={(event) => {
                                     event.stopPropagation();
                                     dispatch(addToCart(p));
@@ -104,7 +110,7 @@ function Products() {
                             >
                                 Agregar
                             </button>
-                            {addedId === p.id && <p>Agregado!</p>}
+                            {addedId === p.id && <p className="added-badge">Agregado!</p>}
 
                         </div>
                     ))

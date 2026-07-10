@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../store/cartSlice";
 import { increaseQuantity, decreaseQuantity } from "../../store/cartSlice";
 import { clearCart } from "../../store/cartSlice";
+import { getProductTitle } from "../../services/productTranslations";
 import Modal from "../../components/Modal/Modal";
 import "./Cart.css";
 
@@ -16,6 +18,7 @@ function Cart() {
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(null); // "delete" | "clear"
     const [selectedId, setSelectedId] = useState(null);
+
     const handleConfirm = () => {
         if (modalType === "delete") {
             dispatch(removeFromCart(selectedId));
@@ -29,58 +32,77 @@ function Cart() {
         setSelectedId(null);
         setModalType(null);
     };
+
     return (
         <div className="cart">
-            <h2>Carrito</h2>
+            <div className="cart-header">
+                <p className="cart-label">Resumen de compra</p>
+                <h2>Carrito</h2>
+                <p>Revisa tus productos, ajusta cantidades o elimina los que no quieras comprar.</p>
+            </div>
 
             {items.length === 0 ? (
-                <p>El carrito está vacío</p>
+                <div className="empty-cart">
+                    <h3>El carrito esta vacio</h3>
+                    <p>Agrega productos desde el catalogo para verlos aca.</p>
+                    <Link to="/">Ver productos</Link>
+                </div>
             ) : (
+                <>
+                    <div className="cart-list">
+                        {items.map((item) => (
+                            <div className="cart-item" key={item.id}>
+                                <div className="cart-product">
+                                    <h3>{getProductTitle(item)}</h3>
+                                    <p>Precio unitario: ${item.price}</p>
+                                </div>
 
-                items.map((item) => (
-                    <div className="cart-item" key={item.id}>
-                        <h3>{item.title}</h3>
-                        <p>${item.price}</p>
-                        <p>Subtotal: ${(item.price * item.quantity).toFixed(2)}</p>
-                        <div>
-                            <button onClick={() => dispatch(decreaseQuantity(item.id))}>
-                                -
-                            </button>
+                                <div className="quantity-control">
+                                    <button onClick={() => dispatch(decreaseQuantity(item.id))}>
+                                        -
+                                    </button>
 
-                            <span>{item.quantity}</span>
+                                    <span>{item.quantity}</span>
 
-                            <button onClick={() => dispatch(increaseQuantity(item.id))}>
-                                +
-                            </button>
-                        </div>
+                                    <button onClick={() => dispatch(increaseQuantity(item.id))}>
+                                        +
+                                    </button>
+                                </div>
 
+                                <p className="cart-subtotal">
+                                    ${(item.price * item.quantity).toFixed(2)}
+                                </p>
+
+                                <button
+                                    className="delete-btn"
+                                    onClick={() => {
+                                        setSelectedId(item.id);
+                                        setModalType("delete");
+                                        setShowModal(true);
+                                    }}
+                                >
+                                    Eliminar
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="cart-summary">
+                        <span>Total</span>
+                        <strong>${totalPrice.toFixed(2)}</strong>
 
                         <button
+                            className="clear-btn"
                             onClick={() => {
-                                setSelectedId(item.id);
-                                setModalType("delete");
+                                setModalType("clear");
                                 setShowModal(true);
                             }}
                         >
-                            Eliminar
+                            Vaciar carrito
                         </button>
                     </div>
-                ))
+                </>
             )}
-
-            {items.length > 0 && (
-                <h3>Total: ${totalPrice.toFixed(2)}</h3>
-            )}
-
-            <button
-                className="clear-btn"
-                onClick={() => {
-                    setModalType("clear");
-                    setShowModal(true);
-                }}
-            >
-                Vaciar carrito
-            </button>
 
             {showModal && (
                 <Modal
@@ -98,7 +120,6 @@ function Cart() {
                 />
             )}
         </div>
-
     );
 }
 

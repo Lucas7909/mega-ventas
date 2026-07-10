@@ -3,6 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { getProductById } from "../../services/productsService";
+import {
+  getProductCategory,
+  getProductDescription,
+  getProductTitle,
+} from "../../services/productTranslations";
 import "./ProductDetail.css";
 
 function ProductDetail() {
@@ -27,27 +32,42 @@ function ProductDetail() {
 
   return (
     <div className="product-detail">
-      <Link className="back-link" to="/">
-        Volver a productos
-      </Link>
+      <div className="detail-top">
+        <Link className="back-link" to="/">
+          Productos
+        </Link>
+        <span>/</span>
+        <span>{getProductTitle(product)}</span>
+      </div>
 
       <div className="detail-layout">
         <div className="detail-image">
-          <img src={product.thumbnail} alt={product.title} />
+          <img src={product.thumbnail} alt={getProductTitle(product)} />
+
+          {product.images?.length > 1 && (
+            <div className="detail-thumbs">
+              {product.images.slice(0, 4).map((image) => (
+                <img key={image} src={image} alt={getProductTitle(product)} />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="detail-info">
-          <p className="detail-category">{product.category}</p>
-          <h1>{product.title}</h1>
-          <p className="detail-description">{product.description}</p>
+          <p className="detail-category">{getProductCategory(product.category)}</p>
+          <h1>{getProductTitle(product)}</h1>
+          <p className="detail-description">{getProductDescription(product)}</p>
+          <p className="detail-price">${product.price}</p>
 
           <div className="detail-data">
-            <span>Precio: ${product.price}</span>
+            {product.brand && <span>Marca: {product.brand}</span>}
             <span>Stock: {product.stock}</span>
-            <span>Rating: {product.rating}</span>
+            <span>Calificacion: {product.rating} / 5</span>
+            <span>Descuento: {product.discountPercentage}%</span>
           </div>
 
           <button
+            className="detail-add-button"
             onClick={() => {
               dispatch(addToCart(product));
               setAdded(true);
@@ -57,7 +77,7 @@ function ProductDetail() {
             Agregar al carrito
           </button>
 
-          {added && <p className="added-message">Producto agregado</p>}
+          {added && <p className="added-message">Producto agregado al carrito</p>}
         </div>
       </div>
     </div>

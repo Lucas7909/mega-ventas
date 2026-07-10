@@ -1,12 +1,21 @@
 .product-detail {
-  padding: 20px;
+  margin: 40px auto;
+  max-width: 1000px;
+  padding: 0 20px 30px;
+}
+
+.detail-top {
+  align-items: center;
+  color: #666;
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: bold;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 .back-link {
   color: #ff3c00;
-  display: inline-block;
-  font-weight: bold;
-  margin-bottom: 20px;
   text-decoration: none;
 }
 
@@ -17,24 +26,42 @@
 .detail-layout {
   align-items: center;
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   display: grid;
   gap: 30px;
-  grid-template-columns: minmax(220px, 360px) 1fr;
-  padding: 25px;
+  grid-template-columns: minmax(260px, 420px) 1fr;
+  padding: 28px;
 }
 
 .detail-image {
-  background: #f5f5f5;
-  border-radius: 10px;
+  background: #f7f9fb;
+  border-radius: 12px;
   padding: 20px;
   text-align: center;
 }
 
 .detail-image img {
-  height: 280px;
+  height: 300px;
   max-width: 100%;
   object-fit: contain;
+}
+
+.detail-thumbs {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 16px;
+}
+
+.detail-thumbs img {
+  background: white;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  height: 64px;
+  object-fit: contain;
+  padding: 6px;
+  width: 100%;
 }
 
 .detail-info h1 {
@@ -43,15 +70,27 @@
 }
 
 .detail-category {
-  color: #777;
+  background: #f7f9fb;
+  border-radius: 20px;
+  color: #0b3d6e;
+  display: inline-block;
+  font-size: 13px;
   font-weight: bold;
   margin-bottom: 8px;
-  text-transform: uppercase;
+  padding: 6px 10px;
+  text-transform: capitalize;
 }
 
 .detail-description {
   line-height: 1.5;
   margin-bottom: 20px;
+}
+
+.detail-price {
+  color: #ff3c00;
+  font-size: 34px;
+  font-weight: bold;
+  margin-bottom: 18px;
 }
 
 .detail-data {
@@ -62,10 +101,16 @@
 }
 
 .detail-data span {
-  background: #f5f5f5;
-  border-radius: 5px;
+  background: #f7f9fb;
+  border-radius: 20px;
+  color: #0b3d6e;
   font-weight: bold;
-  padding: 8px 10px;
+  padding: 8px 12px;
+}
+
+.detail-add-button {
+  min-width: 200px;
+  padding: 10px 14px;
 }
 
 .detail-status,
@@ -75,8 +120,13 @@
 }
 
 .added-message {
+  background: #e8f8ee;
+  border-radius: 20px;
   color: #16803a;
+  display: inline-block;
   font-weight: bold;
+  margin-top: 12px;
+  padding: 7px 12px;
 }
 
 @media (max-width: 700px) {
@@ -86,5 +136,13 @@
 
   .detail-image img {
     height: 220px;
+  }
+
+  .detail-price {
+    font-size: 28px;
+  }
+
+  .detail-add-button {
+    width: 100%;
   }
 }
