@@ -1,16 +1,72 @@
-# React + Vite
+# Mega Ventas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicacion web de e-commerce desarrollada con React, Vite y Redux Toolkit.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+https://Lucas7909.github.io/mega-ventas
 
-## React Compiler
+## Objetivo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+El proyecto permite explorar productos obtenidos desde una API externa, buscar y filtrar por categoria, consultar el detalle de cada producto y gestionar un carrito de compras con estado global.
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Listado de productos desde DummyJSON.
+- Busqueda por texto.
+- Filtro por categorias.
+- Vista de detalle de producto.
+- Carrito de compras con Redux Toolkit.
+- Incremento y decremento de cantidades.
+- Eliminacion de productos y vaciado del carrito.
+- Modal de confirmacion.
+- Navegacion con React Router.
+- Paginas de contacto, acerca de y 404.
+
+## Tecnologias usadas
+
+- React
+- Vite
+- JavaScript
+- Redux Toolkit
+- React Redux
+- React Router
+- CSS
+
+## Estructura del proyecto
+
+```text
+src/
+  assets/
+  components/
+  pages/
+  services/
+  store/
+```
+
+## Como ejecutar el proyecto
+
+```bash
+npm install
+npm run dev
+```
+
+## Build de produccion
+
+```bash
+npm run build
+```
+
+## Deploy
+
+El deploy se realiza en GitHub Pages con:
+
+```bash
+npm run deploy
+```
+
+Este comando ejecuta primero el build de produccion y luego publica la carpeta `dist`.
+
+## Autor
+
+Lucas Maximiliano Sanchez

@@ -35,6 +35,7 @@ function Products() {
     const categories = [...new Set(products.map(p => p.category))];
 
     useEffect(() => {
+        // Se ejecuta solo al montar la vista porque la lista inicial no depende de filtros locales.
         getProducts()
             .then((data) => setProducts(data))
             .catch(() => setError("Error al cargar productos"))

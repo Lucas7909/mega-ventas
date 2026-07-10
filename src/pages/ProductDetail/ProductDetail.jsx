@@ -14,6 +14,7 @@ function ProductDetail() {
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
+    // Depende del id porque debe pedir un producto nuevo si cambia la ruta.
     getProductById(id)
       .then((data) => setProduct(data))
       .catch(() => setError("Error al cargar el detalle del producto"))
