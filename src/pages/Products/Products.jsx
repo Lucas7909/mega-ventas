@@ -71,7 +71,7 @@ function Products() {
                         <option value="">Todas</option>
                         {categories.map((cat) => (
                             <option key={cat} value={cat}>
-                                {cat}
+                                {getProductCategory(cat)}
                             </option>
                         ))}
                     </select>

@@ -13,15 +13,22 @@ import "./ProductDetail.css";
 function ProductDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const productId = Number(id);
+  const previousProductId = productId > 1 ? productId - 1 : null;
+  const nextProductId = productId < 24 ? productId + 1 : null;
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [added, setAdded] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     // Depende del id porque debe pedir un producto nuevo si cambia la ruta.
     getProductById(id)
-      .then((data) => setProduct(data))
+      .then((data) => {
+        setProduct(data);
+        setSelectedImage(data.thumbnail);
+      })
       .catch(() => setError("Error al cargar el detalle del producto"))
       .finally(() => setLoading(false));
   }, [id]);
@@ -32,6 +39,26 @@ function ProductDetail() {
 
   return (
     <div className="product-detail">
+      {previousProductId && (
+        <Link
+          aria-label="Producto anterior"
+          className="detail-arrow detail-arrow-left"
+          to={`/products/${previousProductId}`}
+        >
+          ‹
+        </Link>
+      )}
+
+      {nextProductId && (
+        <Link
+          aria-label="Producto siguiente"
+          className="detail-arrow detail-arrow-right"
+          to={`/products/${nextProductId}`}
+        >
+          ›
+        </Link>
+      )}
+
       <div className="detail-top">
         <Link className="back-link" to="/">
           Productos
@@ -42,12 +69,19 @@ function ProductDetail() {
 
       <div className="detail-layout">
         <div className="detail-image">
-          <img src={product.thumbnail} alt={getProductTitle(product)} />
+          <img src={selectedImage} alt={getProductTitle(product)} />
 
           {product.images?.length > 1 && (
             <div className="detail-thumbs">
               {product.images.slice(0, 4).map((image) => (
-                <img key={image} src={image} alt={getProductTitle(product)} />
+                <button
+                  className={selectedImage === image ? "thumb active-thumb" : "thumb"}
+                  key={image}
+                  onClick={() => setSelectedImage(image)}
+                  type="button"
+                >
+                  <img src={image} alt={getProductTitle(product)} />
+                </button>
               ))}
             </div>
           )}
