@@ -4,12 +4,24 @@ import "./NotFound.css";
 function NotFound() {
   return (
     <div className="not-found">
-      <h2>404</h2>
-      <p>Página no encontrada</p>
+      <div className="not-found-card">
+        <p className="not-found-label">Error 404</p>
+        <h2>Pagina no encontrada</h2>
+        <p>
+          La ruta que intentaste abrir no existe o fue movida. Podes volver al
+          catalogo para seguir navegando por Mega Ventas.
+        </p>
 
-      <Link to="/" className="back-btn">
-        Volver al inicio
-      </Link>
+        <div className="not-found-actions">
+          <Link to="/" className="back-btn">
+            Volver al catalogo
+          </Link>
+
+          <Link to="/contact" className="secondary-btn">
+            Contacto
+          </Link>
+        </div>
+      </div>
 
     </div>
   );
